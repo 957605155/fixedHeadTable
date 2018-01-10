@@ -1,0 +1,164 @@
+.fixedHeadTable {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /*overflow: hidden;*/
+}
+
+.fixedHeadTable table {
+    /*width: 100%;*/
+    height: 100%;
+}
+
+.fixedHeadTable .transverseRollingWrap {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /*position: absolute;
+    top: 0;
+    left: 0;*/
+}
+
+.fixedHeadTable .transverseRollingWrap>table {
+    /*position: absolute;
+    top: 0;
+    left: 0;*/
+}
+
+.fixedHeadTable table,
+.fixedHeadTable td {
+    border: 1px solid #DFE0E1;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+
+.fixedHeadTable td {
+    min-width: 80px;
+}
+
+.fixedHeadTable .fixedWrap {
+    position: absolute;
+    z-index: 10;
+    height: calc(100% - 10px);
+    width: calc(100% - 10px);
+    overflow: hidden;
+}
+
+
+
+
+/*定位*/
+
+.fixedHeadTable .topLeftFixedWrap,
+.fixedHeadTable .topMiddleFixedWrap,
+.fixedHeadTable .middleLeftFixedWrap {
+    left: 0;
+    top: 0;
+}
+
+.fixedHeadTable .bottomLeftFixedWrap,
+.fixedHeadTable .bottomMiddleFixedWrap {
+    left: 0;
+    bottom: 10px;
+}
+
+.fixedHeadTable .rightFixedWrap {
+    right: 10px;
+    top: 0;
+}
+
+.fixedHeadTable .bottomRightFixedWrap {
+    bottom: 10px;
+    top: auto;
+}
+
+.fixedHeadTable .rightFixedWrap>table {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.fixedHeadTable .bottomLeftFixedWrap>table {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: auto;
+}
+
+.fixedHeadTable .bottomMiddleFixedWrap>table {
+    position: absolute;
+    bottom: 0;
+}
+
+.fixedHeadTable .bottomRightFixedWrap>table {
+    top: auto;
+    bottom: 0;
+}
+
+
+
+
+/*层级关系*/
+
+.fixedHeadTable .zIndex20 {
+    z-index: 20;
+}
+
+.fixedHeadTable .zIndex30 {
+    z-index: 30;
+}
+
+
+
+.fixedHeadTable .invisible {
+    visibility: hidden;
+}
+
+.fixedHeadTable .noDisplay {
+    display: none;
+}
+
+.fixedHeadTable .noOpacity {
+    opacity: 0;
+    border: 1px solid transparent;
+}
+
+.fixedHeadTable .borderRight {
+    border-right: 1px solid #DFE0E1;
+}
+
+
+.fixedHeadTable ::-webkit-scrollbar {
+    /* 滚动条整体部分 */
+    width: 10px;
+    margin-right: 2px
+}
+
+.fixedHeadTable ::-webkit-scrollbar:horizontal {
+    height: 10px;
+    margin-bottom: 2px
+}
+
+.fixedHeadTable ::-webkit-scrollbar-track {
+    /* 外层轨道 */
+    display: none;
+}
+
+.fixedHeadTable ::-webkit-scrollbar-track-piece {
+    /*内层轨道，滚动条中间部分 */
+    background-color: #EDEDED;
+    border-radius: 10px;
+}
+
+.fixedHeadTable ::-webkit-scrollbar-thumb {
+    /* 滑块 */
+    width: 10px;
+    border-radius: 5px;
+    background: #A1A1A1;
+}
+
+.fixedHeadTable ::-webkit-scrollbar-thumb:hover {
+    /* 鼠标移入滑块 */
+    background: #909090;
+}

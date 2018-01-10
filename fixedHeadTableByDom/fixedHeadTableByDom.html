@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>固定表头表格(从dom表格入手)</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./mc-fixedHeadTableByDom.css">
+</head>
+
+<body>
+    <div id="J_fixedHeadTable" style="height: 200px; width: 400px;">
+        <table class="table" ng-show="products">
+            <thead>
+                <tr>
+                    <td>产品编号</td>
+                    <td>产品名字</td>
+                    <td>购买数量</td>
+                    <td>产品单价</td>
+                    <td>产品总价</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products" class="ng-scope">
+                    <td class="ng-binding">1</td>
+                    <td class="ng-binding">iphone6</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'-')">-</button>
+                        <input type="number" ng-model="product.quantity" min="1" class="ng-pristine ng-untouched ng-valid ng-valid-min">
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'+')">+</button>
+                    </td>
+                    <td class="ng-binding">5500</td>
+                    <td class="ng-binding">5500</td>
+                    <td class="remove">
+                        <button class="btn btn-danger" ng-click="remove(product.id)">移除</button>
+                    </td>
+                </tr>
+                <tr ng-repeat="product in products" class="ng-scope">
+                    <td class="ng-binding">2</td>
+                    <td class="ng-binding">iphone5s</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'-')">-</button>
+                        <input type="number" ng-model="product.quantity" min="1" class="ng-pristine ng-untouched ng-valid ng-valid-min">
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'+')">+</button>
+                    </td>
+                    <td class="ng-binding">4000</td>
+                    <td class="ng-binding">4000</td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="remove(product.id)">移除</button>
+                    </td>
+                </tr>
+                <tr ng-repeat="product in products" class="ng-scope">
+                    <td class="ng-binding">3</td>
+                    <td class="ng-binding">iphone5</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'-')">-</button>
+                        <input type="number" ng-model="product.quantity" min="1" class="ng-pristine ng-untouched ng-valid ng-valid-min">
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'+')">+</button>
+                    </td>
+                    <td class="ng-binding">3800</td>
+                    <td class="ng-binding">3800</td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="remove(product.id)">移除</button>
+                    </td>
+                </tr>
+                <tr ng-repeat="product in products" class="ng-scope">
+                    <td class="ng-binding">4</td>
+                    <td class="ng-binding">iphone4</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'-')">-</button>
+                        <input type="number" ng-model="product.quantity" min="1" class="ng-pristine ng-untouched ng-valid ng-valid-min">
+                        <button class="btn btn-primary" ng-click="changeQuantity(product.id,'+')">+</button>
+                    </td>
+                    <td class="ng-binding">3500</td>
+                    <td class="ng-binding">3500</td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="remove(product.id)">移除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>总价</td>
+                    <td class="ng-binding">16800</td>
+                    <td>总数量</td>
+                    <td class="ng-binding">4</td>
+                    <td colspan="2">
+                        <button class="btn btn-danger" ng-click="empty()">清空购物车</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <table class="defaultTable">
+            <thead>
+                <tr class="head">
+                    <td colspan="2" data-parent="" data-value="" rowspan="2" data-id="" data-children="" class="fixedLeft"></td>
+                    <td colspan="1" data-parent="" data-value="年份" rowspan="" data-id="" data-children="" class="fixedLeft">年份</td>
+                    <td colspan="8" data-parent="2016" data-value="2016" rowspan="" data-id="" data-children="1">2016</td>
+                    <td colspan="6" data-parent="2017" data-value="2017" rowspan="" data-id="" data-children="1">2017</td>
+                    <td colspan="2" data-parent="总计" data-value="总计" rowspan="2" data-id="" data-children="1" class="fixedRight">总计</td>
+                </tr>
+                <tr class="head">
+                    <td colspan="1" data-parent="" data-value="月份" rowspan="" data-id="" data-children="" class="fixedLeft">月份</td>
+                    <td colspan="2" data-parent="2016" data-value="1" rowspan="" data-id="" data-children="0">1</td>
+                    <td colspan="2" data-parent="2016" data-value="11" rowspan="" data-id="" data-children="0">11</td>
+                    <td colspan="2" data-parent="2016" data-value="12" rowspan="" data-id="" data-children="0">12</td>
+                    <td colspan="2" data-parent="2016" data-value="总计" rowspan="1" data-id="" data-children="1">总计</td>
+                    <td colspan="2" data-parent="2017" data-value="1" rowspan="" data-id="" data-children="0">1</td>
+                    <td colspan="2" data-parent="2017" data-value="2" rowspan="" data-id="" data-children="0">2</td>
+                    <td colspan="2" data-parent="2017" data-value="总计" rowspan="1" data-id="" data-children="1">总计</td>
+                </tr>
+                <tr class="head">
+                    <td colspan="" data-parent="" data-value="医院" rowspan="" data-id="" data-children="" class="fixedLeft">医院</td>
+                    <td colspan="" data-parent="" data-value="科室" rowspan="" data-id="" data-children="" class="fixedLeft">科室</td>
+                    <td colspan="1" data-parent="" data-value="" rowspan="" data-id="" data-children="" class="fixedLeft"></td>
+                    <td colspan="1" data-parent="2016+1" data-value="总收入" rowspan="" data-id="" data-children="">总收入</td>
+                    <td colspan="1" data-parent="2016+1" data-value="医疗收入" rowspan="" data-id="" data-children="">医疗收入</td>
+                    <td colspan="1" data-parent="2016+11" data-value="总收入" rowspan="" data-id="" data-children="">总收入</td>
+                    <td colspan="1" data-parent="2016+11" data-value="医疗收入" rowspan="" data-id="" data-children="">医疗收入</td>
+                    <td colspan="1" data-parent="2016+12" data-value="总收入" rowspan="" data-id="" data-children="">总收入</td>
+                    <td colspan="1" data-parent="2016+12" data-value="医疗收入" rowspan="" data-id="" data-children="">医疗收入</td>
+                    <td colspan="1" data-parent="2016+总计" data-value="总收入" rowspan="" data-id="" data-children="">总收入</td>
+                    <td colspan="1" data-parent="2016+总计" data-value="医疗收入" rowspan="" data-id="" data-children="">医疗收入</td>
+                    <td colspan="1" data-parent="2017+1" data-value="总收入" rowspan="" data-id="" data-children="">总收入</td>
+                    <td colspan="1" data-parent="2017+1" data-value="医疗收入" rowspan="" data-id="" data-children="">医疗收入</td>
+                    <td colspan="1" data-parent="2017+2" data-value="总收入" rowspan="" data-id="" data-children="">总收入</td>
+                    <td colspan="1" data-parent="2017+2" data-value="医疗收入" rowspan="" data-id="" data-children="">医疗收入</td>
+                    <td colspan="1" data-parent="2017+总计" data-value="总收入" rowspan="" data-id="" data-children="">总收入</td>
+                    <td colspan="1" data-parent="2017+总计" data-value="医疗收入" rowspan="" data-id="" data-children="">医疗收入</td>
+                    <td colspan="1" data-parent="总计" data-value="总收入" rowspan="" data-id="" data-children="0" class="fixedRight">总收入</td>
+                    <td colspan="1" data-parent="总计" data-value="医疗收入" rowspan="" data-id="" data-children="0" class="fixedRight">医疗收入</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="body">
+                    <td colspan="1" class="fixedLeft" data-parent="none" data-value="分院一" data-row="" data-head="" rowspan="6" data-children="" data-id="">分院一</td>
+                    <td colspan="2" class="fixedLeft" data-parent="分院一" data-value="神经内科" data-row="" data-head="" rowspan="" data-children="" data-id="">神经内科</td>
+                    <td colspan="" data-parent="" data-value="1408012.76" data-row="" data-head="" rowspan="" data-children="" data-id="">1408012.76</td>
+                    <td colspan="" data-parent="" data-value="872106.45" data-row="" data-head="" rowspan="" data-children="" data-id="">872106.45</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1408012.76" data-row="" data-head="" rowspan="" data-children="" data-id="">1408012.76</td>
+                    <td colspan="" data-parent="" data-value="872106.45" data-row="" data-head="" rowspan="" data-children="" data-id="">872106.45</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1408012.76" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1408012.76</td>
+                    <td colspan="" data-parent="" data-value="872106.45" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">872106.45</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="分院一" data-value="乳腺甲状腺科" data-row="" data-head="" rowspan="" data-children="" data-id="">乳腺甲状腺科</td>
+                    <td colspan="" data-parent="" data-value="782681.9" data-row="" data-head="" rowspan="" data-children="" data-id="">782681.9</td>
+                    <td colspan="" data-parent="" data-value="651485.34" data-row="" data-head="" rowspan="" data-children="" data-id="">651485.34</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1024657.37" data-row="" data-head="" rowspan="" data-children="" data-id="">1024657.37</td>
+                    <td colspan="" data-parent="" data-value="848720.58" data-row="" data-head="" rowspan="" data-children="" data-id="">848720.58</td>
+                    <td colspan="" data-parent="" data-value="1807339.27" data-row="" data-head="" rowspan="" data-children="" data-id="">1807339.27</td>
+                    <td colspan="" data-parent="" data-value="1500205.92" data-row="" data-head="" rowspan="" data-children="" data-id="">1500205.92</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="839598.93" data-row="" data-head="" rowspan="" data-children="" data-id="">839598.93</td>
+                    <td colspan="" data-parent="" data-value="431186.07" data-row="" data-head="" rowspan="" data-children="" data-id="">431186.07</td>
+                    <td colspan="" data-parent="" data-value="839598.93" data-row="" data-head="" rowspan="" data-children="" data-id="">839598.93</td>
+                    <td colspan="" data-parent="" data-value="431186.07" data-row="" data-head="" rowspan="" data-children="" data-id="">431186.07</td>
+                    <td colspan="" data-parent="" data-value="2646938.2" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">2646938.2</td>
+                    <td colspan="" data-parent="" data-value="1931391.99" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1931391.99</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="分院一" data-value="心血管内科" data-row="" data-head="" rowspan="" data-children="" data-id="">心血管内科</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1779542.24" data-row="" data-head="" rowspan="" data-children="" data-id="">1779542.24</td>
+                    <td colspan="" data-parent="" data-value="1459289.04" data-row="" data-head="" rowspan="" data-children="" data-id="">1459289.04</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1779542.24" data-row="" data-head="" rowspan="" data-children="" data-id="">1779542.24</td>
+                    <td colspan="" data-parent="" data-value="1459289.04" data-row="" data-head="" rowspan="" data-children="" data-id="">1459289.04</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1779542.24" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1779542.24</td>
+                    <td colspan="" data-parent="" data-value="1459289.04" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1459289.04</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="分院一" data-value="骨科一" data-row="" data-head="" rowspan="" data-children="" data-id="">骨科一</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1082708.42" data-row="" data-head="" rowspan="" data-children="" data-id="">1082708.42</td>
+                    <td colspan="" data-parent="" data-value="877578.91" data-row="" data-head="" rowspan="" data-children="" data-id="">877578.91</td>
+                    <td colspan="" data-parent="" data-value="1082708.42" data-row="" data-head="" rowspan="" data-children="" data-id="">1082708.42</td>
+                    <td colspan="" data-parent="" data-value="877578.91" data-row="" data-head="" rowspan="" data-children="" data-id="">877578.91</td>
+                    <td colspan="" data-parent="" data-value="976567.94" data-row="" data-head="" rowspan="" data-children="" data-id="">976567.94</td>
+                    <td colspan="" data-parent="" data-value="506945.29" data-row="" data-head="" rowspan="" data-children="" data-id="">506945.29</td>
+                    <td colspan="" data-parent="" data-value="905369.16" data-row="" data-head="" rowspan="" data-children="" data-id="">905369.16</td>
+                    <td colspan="" data-parent="" data-value="639892.15" data-row="" data-head="" rowspan="" data-children="" data-id="">639892.15</td>
+                    <td colspan="" data-parent="" data-value="1881937.1" data-row="" data-head="" rowspan="" data-children="" data-id="">1881937.1</td>
+                    <td colspan="" data-parent="" data-value="1146837.44" data-row="" data-head="" rowspan="" data-children="" data-id="">1146837.44</td>
+                    <td colspan="" data-parent="" data-value="2964645.52" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">2964645.52</td>
+                    <td colspan="" data-parent="" data-value="2024416.35" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">2024416.35</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="分院一" data-value="骨科二" data-row="" data-head="" rowspan="" data-children="" data-id="">骨科二</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="945848.73" data-row="" data-head="" rowspan="" data-children="" data-id="">945848.73</td>
+                    <td colspan="" data-parent="" data-value="484889.84" data-row="" data-head="" rowspan="" data-children="" data-id="">484889.84</td>
+                    <td colspan="" data-parent="" data-value="844818.31" data-row="" data-head="" rowspan="" data-children="" data-id="">844818.31</td>
+                    <td colspan="" data-parent="" data-value="655469.31" data-row="" data-head="" rowspan="" data-children="" data-id="">655469.31</td>
+                    <td colspan="" data-parent="" data-value="1790667.04" data-row="" data-head="" rowspan="" data-children="" data-id="">1790667.04</td>
+                    <td colspan="" data-parent="" data-value="1140359.1500000001" data-row="" data-head="" rowspan="" data-children="" data-id="">1140359.1500000001</td>
+                    <td colspan="" data-parent="" data-value="1790667.04" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1790667.04</td>
+                    <td colspan="" data-parent="" data-value="1140359.1500000001" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1140359.1500000001</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="分院一" data-value="小计" data-row="" data-head="" rowspan="" data-children="" data-id="">小计</td>
+                    <td colspan="" data-parent="" data-value="2190694.66" data-row="" data-head="" rowspan="" data-children="" data-id="">2190694.66</td>
+                    <td colspan="" data-parent="" data-value="1523591.79" data-row="" data-head="" rowspan="" data-children="" data-id="">1523591.79</td>
+                    <td colspan="" data-parent="" data-value="1779542.24" data-row="" data-head="" rowspan="" data-children="" data-id="">1779542.24</td>
+                    <td colspan="" data-parent="" data-value="1459289.04" data-row="" data-head="" rowspan="" data-children="" data-id="">1459289.04</td>
+                    <td colspan="" data-parent="" data-value="2107365.79" data-row="" data-head="" rowspan="" data-children="" data-id="">2107365.79</td>
+                    <td colspan="" data-parent="" data-value="1726299.49" data-row="" data-head="" rowspan="" data-children="" data-id="">1726299.49</td>
+                    <td colspan="" data-parent="" data-value="6077602.69" data-row="" data-head="" rowspan="" data-children="" data-id="">6077602.69</td>
+                    <td colspan="" data-parent="" data-value="4709180.32" data-row="" data-head="" rowspan="" data-children="" data-id="">4709180.32</td>
+                    <td colspan="" data-parent="" data-value="1922416.67" data-row="" data-head="" rowspan="" data-children="" data-id="">1922416.67</td>
+                    <td colspan="" data-parent="" data-value="991835.13" data-row="" data-head="" rowspan="" data-children="" data-id="">991835.13</td>
+                    <td colspan="" data-parent="" data-value="2589786.4000000004" data-row="" data-head="" rowspan="" data-children="" data-id="">2589786.4000000004</td>
+                    <td colspan="" data-parent="" data-value="1726547.53" data-row="" data-head="" rowspan="" data-children="" data-id="">1726547.53</td>
+                    <td colspan="" data-parent="" data-value="4512203.07" data-row="" data-head="" rowspan="" data-children="" data-id="">4512203.07</td>
+                    <td colspan="" data-parent="" data-value="2718382.6599999997" data-row="" data-head="" rowspan="" data-children="" data-id="">2718382.6599999997</td>
+                    <td colspan="" data-parent="" data-value="10589805.760000002" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">10589805.760000002</td>
+                    <td colspan="" data-parent="" data-value="7427562.98" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">7427562.98</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="1" class="fixedLeft" data-parent="none" data-value="本院" data-row="" data-head="" rowspan="5" data-children="" data-id="">本院</td>
+                    <td colspan="2" class="fixedLeft" data-parent="本院" data-value="消化内科" data-row="" data-head="" rowspan="" data-children="" data-id="">消化内科</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1942207.59" data-row="" data-head="" rowspan="" data-children="" data-id="">1942207.59</td>
+                    <td colspan="" data-parent="" data-value="1232388.66" data-row="" data-head="" rowspan="" data-children="" data-id="">1232388.66</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1942207.59" data-row="" data-head="" rowspan="" data-children="" data-id="">1942207.59</td>
+                    <td colspan="" data-parent="" data-value="1232388.66" data-row="" data-head="" rowspan="" data-children="" data-id="">1232388.66</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1942207.59" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1942207.59</td>
+                    <td colspan="" data-parent="" data-value="1232388.66" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1232388.66</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="本院" data-value="骨科一" data-row="" data-head="" rowspan="" data-children="" data-id="">骨科一</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1337662.56" data-row="" data-head="" rowspan="" data-children="" data-id="">1337662.56</td>
+                    <td colspan="" data-parent="" data-value="1151469.8" data-row="" data-head="" rowspan="" data-children="" data-id="">1151469.8</td>
+                    <td colspan="" data-parent="" data-value="1408012.76" data-row="" data-head="" rowspan="" data-children="" data-id="">1408012.76</td>
+                    <td colspan="" data-parent="" data-value="872106.45" data-row="" data-head="" rowspan="" data-children="" data-id="">872106.45</td>
+                    <td colspan="" data-parent="" data-value="2745675.3200000003" data-row="" data-head="" rowspan="" data-children="" data-id="">2745675.3200000003</td>
+                    <td colspan="" data-parent="" data-value="2023576.25" data-row="" data-head="" rowspan="" data-children="" data-id="">2023576.25</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="912208.88" data-row="" data-head="" rowspan="" data-children="" data-id="">912208.88</td>
+                    <td colspan="" data-parent="" data-value="833887" data-row="" data-head="" rowspan="" data-children="" data-id="">833887</td>
+                    <td colspan="" data-parent="" data-value="912208.88" data-row="" data-head="" rowspan="" data-children="" data-id="">912208.88</td>
+                    <td colspan="" data-parent="" data-value="833887" data-row="" data-head="" rowspan="" data-children="" data-id="">833887</td>
+                    <td colspan="" data-parent="" data-value="3657884.2" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">3657884.2</td>
+                    <td colspan="" data-parent="" data-value="2857463.25" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">2857463.25</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="本院" data-value="骨科二" data-row="" data-head="" rowspan="" data-children="" data-id="">骨科二</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1082708.42" data-row="" data-head="" rowspan="" data-children="" data-id="">1082708.42</td>
+                    <td colspan="" data-parent="" data-value="877578.91" data-row="" data-head="" rowspan="" data-children="" data-id="">877578.91</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1082708.42" data-row="" data-head="" rowspan="" data-children="" data-id="">1082708.42</td>
+                    <td colspan="" data-parent="" data-value="877578.91" data-row="" data-head="" rowspan="" data-children="" data-id="">877578.91</td>
+                    <td colspan="" data-parent="" data-value="986338.65" data-row="" data-head="" rowspan="" data-children="" data-id="">986338.65</td>
+                    <td colspan="" data-parent="" data-value="600260.82" data-row="" data-head="" rowspan="" data-children="" data-id="">600260.82</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="986338.65" data-row="" data-head="" rowspan="" data-children="" data-id="">986338.65</td>
+                    <td colspan="" data-parent="" data-value="600260.82" data-row="" data-head="" rowspan="" data-children="" data-id="">600260.82</td>
+                    <td colspan="" data-parent="" data-value="2069047.0699999998" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">2069047.0699999998</td>
+                    <td colspan="" data-parent="" data-value="1477839.73" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">1477839.73</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="本院" data-value="乳腺甲状腺科" data-row="" data-head="" rowspan="" data-children="" data-id="">乳腺甲状腺科</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="1337662.56" data-row="" data-head="" rowspan="" data-children="" data-id="">1337662.56</td>
+                    <td colspan="" data-parent="" data-value="1151469.8" data-row="" data-head="" rowspan="" data-children="" data-id="">1151469.8</td>
+                    <td colspan="" data-parent="" data-value="1337662.56" data-row="" data-head="" rowspan="" data-children="" data-id="">1337662.56</td>
+                    <td colspan="" data-parent="" data-value="1151469.8" data-row="" data-head="" rowspan="" data-children="" data-id="">1151469.8</td>
+                    <td colspan="" data-parent="" data-value="1014143.93" data-row="" data-head="" rowspan="" data-children="" data-id="">1014143.93</td>
+                    <td colspan="" data-parent="" data-value="631132.73" data-row="" data-head="" rowspan="" data-children="" data-id="">631132.73</td>
+                    <td colspan="" data-parent="" data-value="932989.43" data-row="" data-head="" rowspan="" data-children="" data-id="">932989.43</td>
+                    <td colspan="" data-parent="" data-value="574984.33" data-row="" data-head="" rowspan="" data-children="" data-id="">574984.33</td>
+                    <td colspan="" data-parent="" data-value="1947133.36" data-row="" data-head="" rowspan="" data-children="" data-id="">1947133.36</td>
+                    <td colspan="" data-parent="" data-value="1206117.06" data-row="" data-head="" rowspan="" data-children="" data-id="">1206117.06</td>
+                    <td colspan="" data-parent="" data-value="3284795.9200000004" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">3284795.9200000004</td>
+                    <td colspan="" data-parent="" data-value="2357586.86" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">2357586.86</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="2" class="fixedLeft" data-parent="本院" data-value="小计" data-row="" data-head="" rowspan="" data-children="" data-id="">小计</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id=""></td>
+                    <td colspan="" data-parent="" data-value="4362578.57" data-row="" data-head="" rowspan="" data-children="" data-id="">4362578.57</td>
+                    <td colspan="" data-parent="" data-value="3261437.37" data-row="" data-head="" rowspan="" data-children="" data-id="">3261437.37</td>
+                    <td colspan="" data-parent="" data-value="2745675.3200000003" data-row="" data-head="" rowspan="" data-children="" data-id="">2745675.3200000003</td>
+                    <td colspan="" data-parent="" data-value="2023576.25" data-row="" data-head="" rowspan="" data-children="" data-id="">2023576.25</td>
+                    <td colspan="" data-parent="" data-value="7108253.890000001" data-row="" data-head="" rowspan="" data-children="" data-id="">7108253.890000001</td>
+                    <td colspan="" data-parent="" data-value="5285013.62" data-row="" data-head="" rowspan="" data-children="" data-id="">5285013.62</td>
+                    <td colspan="" data-parent="" data-value="2000482.58" data-row="" data-head="" rowspan="" data-children="" data-id="">2000482.58</td>
+                    <td colspan="" data-parent="" data-value="1231393.5499999998" data-row="" data-head="" rowspan="" data-children="" data-id="">1231393.5499999998</td>
+                    <td colspan="" data-parent="" data-value="1845198.31" data-row="" data-head="" rowspan="" data-children="" data-id="">1845198.31</td>
+                    <td colspan="" data-parent="" data-value="1408871.33" data-row="" data-head="" rowspan="" data-children="" data-id="">1408871.33</td>
+                    <td colspan="" data-parent="" data-value="3845680.89" data-row="" data-head="" rowspan="" data-children="" data-id="">3845680.89</td>
+                    <td colspan="" data-parent="" data-value="2640264.88" data-row="" data-head="" rowspan="" data-children="" data-id="">2640264.88</td>
+                    <td colspan="" data-parent="" data-value="10953934.780000001" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">10953934.780000001</td>
+                    <td colspan="" data-parent="" data-value="7925278.5" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">7925278.5</td>
+                </tr>
+                <tr class="body">
+                    <td colspan="3" class="fixedLeft" data-parent="none" data-value="小计" data-row="" data-head="" rowspan="" data-children="" data-id="">小计</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="">123</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">12345</td>
+                    <td colspan="" data-parent="" data-value="" data-row="" data-head="" rowspan="" data-children="" data-id="" class="fixedRight">12345</td>
+                </tr>
+            </tbody>
+        </table> -->
+    </div>
+    <script type="text/javascript" src="../lib/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="../lib/jsrender.min.js"></script>
+    <script type="text/javascript" src="../lib/underscore.1.8.3.min.js"></script>
+    <script type="text/javascript" src="../lib/E_Base.js"></script>
+    <script type="text/javascript" src="./mc_fixedHeadTableByDom.js"></script>
+    <script>
+    // 使用注意点：传进来的表格里都是td，不能有th；fixed里的参数传数字话只能是数字，不能'1'这样传；如果有点击事件，要把类改为noOpacity，并且如果有右边固定，由于层级关系会点击不到
+    var fixedHeadTable = new FixedHeadTable();
+    fixedHeadTable.init({
+        'dom': '#J_fixedHeadTable',
+        'option': {
+            'data': {
+                'html': $('#J_fixedHeadTable').html(),
+                'fixed': {
+                    top: 1,
+                    bottom: 1,
+                    left: 1,
+                    right: 1,
+                },
+                'bgColors': {
+                    topLeftBg: 'red', // 颜色设置
+                    topMiddleBg: 'yellow',
+                    topRightBg: 'green',
+                    middleLeftBg: 'blue',
+                    middleRightBg: '#ccc',
+                    bottomLeftBg: '#000',
+                    bottomMiddleBg: '#A4AE82',
+                    bottomRightBg: '#F92659',
+                }
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>
